@@ -1,9 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python3
 import random
 import sys
 
 from checklib import *
 from checklib import status
+import logging
 
 import will_lib
 
@@ -46,10 +47,6 @@ class Checker(BaseChecker):
         session1 = self._session_with_req_ua()
         session2 = self._session_with_req_ua()
 
-        ping = self.lib.ping()
-        if not ping:
-            self.cquit(Status.DOWN)
-
         username1, password1, email1, phone1 = rnd_username(), rnd_password(), f'{self._random_chars}@{self._random_chars}.{self._random_chars}', self._random_phone
         username2, password2, email2, phone2 = rnd_username(), rnd_password(), f'{self._random_chars}@{self._random_chars}.{self._random_chars}', self._random_phone
         
@@ -78,7 +75,7 @@ class Checker(BaseChecker):
         title = self._random_chars
         will_id = self.lib.create_will(session1, title, flag, username2)
 
-        self.cquit(Status.OK, f"{username1}:{username2}:{will_id}", f"{username1}:{password1}:{username2}:{password2}:{will_id}")
+        self.cquit(Status.OK, {"username1" :username1, "username2": username2, "will_id": will_id}, f"{username1}:{password1}:{username2}:{password2}:{will_id}")
 
     def get(self, flag_id: str, flag: str, vuln: str):
         username1, password1, username2, password2, will_id = flag_id.split(':')

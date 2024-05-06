@@ -5,7 +5,7 @@ include "models/will.php";
 include "models/user.php";
 
 if (isset($_POST['title']) && isset($_POST['will'])) {
-    if (strlen($_POST['title']) > 0 && strlen($_POST['will']) > 0 && !preg_match('/^[a-zA-Z0-9]+$/', $_POST['title']) || !preg_match('/^[a-zA-Z0-9]+$/', $_POST['will'])){
+    if (strlen($_POST['title']) > 0 && strlen($_POST['will']) > 0 && !preg_match('/^[a-zA-Z0-9]+$/', $_POST['title']) || !preg_match('/^[a-zA-Z0-9=]+$/', $_POST['will'])){
         $err = 'Не получишь завещание!';
         header('Location: /create_will.php?err='.urlencode($err));
         echo($err);
