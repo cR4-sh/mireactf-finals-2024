@@ -8,14 +8,16 @@ session_start();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="static/css/styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-<title>Завещательница</title>
+<title>Завещалка</title>
 </head>
 <body>
 
-<!-- baseline -->
 <div class="content-wrap">
   <div class="navbar">
-    <span class="navbar-brand">Завещательница</span>
+    <div class="navbar-left">
+      <a href="/index.php"><img src="/static/img/logo.png"></a>
+      <a href="/index.php"><span class="navbar-brand">Завещалка</span></a>
+    </div>
     <div>
       <?php
       if (isset($_SESSION['user'])){
@@ -34,17 +36,17 @@ session_start();
   <div class="welcome-page">
     <div>
       <div class="welcome-message">
-      Добро пожаловать в нашу завещательницу!
+        Дорогие сотрудники класса D.
       <ul>
-        <li>Здесь вы можете оставить свое завещание</li>
-        <li>Его увидят только те, кому вы это позволите</li>
+        <li>На данном веб-ресурсе вам будет дана возможность ссказать свое последние влово.</li>
+        <li>С уважением, руководство фонда.</li>
       </ul>
       </div>
     </div>
   </div>
 </div>
 <div class="footer">
-Сервис завещаний - с нами надежнее! | 8-800-5555-35-35
+SCP-завещалка - с нами надежнее!
 </div>
 
 

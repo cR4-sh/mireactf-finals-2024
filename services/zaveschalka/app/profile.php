@@ -10,13 +10,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="static/css/styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-<title>Завещательница</title>
+<title>Завещалка</title>
 </head>
 <body>
 
 <div class="content-wrap">
   <div class="navbar">
-    <span class="navbar-brand">Завещательница</span>
+    <div class="navbar-left">
+      <a href="/index.php"><img src="/static/img/logo.png"></a>
+      <a href="/index.php"><span class="navbar-brand">Завещалка</span></a>
+    </div>
     <div>
       <a href="profile.php">Профиль</a>
       <a href="create_will.php">Создать завещание</a>
@@ -24,7 +27,7 @@
     </div>
   </div>    
   <div class="form-wrapper">
-  <div class="form-title">Профиль пользователя</div>
+  <div class="form-title">Профиль сотрудника</div>
   <?php
     include("models/user.php");
 
@@ -35,10 +38,10 @@
     $user = unserialize(file_get_contents('users/'.$uid.'.txt'));
 
     echo '<div class="profile-info">
-            <p><strong>Имя пользователя:</strong> '.$user->login.'</p>
+            <p><strong>Имя сотрудника:</strong> '.$user->login.'</p>
             <p><strong>Почта:</strong> '.$user->email.'</p>
             <p><strong>Номер телефона:</strong> '.$user->phone.'</p>
-          </div>';
+            <p><strong>Класс:</strong> D</p>';
 
     if (!isset($user->wills) || count($user->wills) == 0){
       echo '<h4>У вас еще нет завещаний. <a href="/create_will.php">Создать</a>.</h4>';
@@ -49,7 +52,7 @@
               <table>
                 <thead>
                   <tr>
-                    <th>ID завещания</th>
+                    <th>&nbsp;&nbsp;ID завещания</th>
                   </tr>
                 </thead>
                 <tbody>';
@@ -63,11 +66,12 @@
           </table>
         </div>';
 }
+    echo '</div>';
 ?>
 </div>
 </div>
 <div class="footer">
-Сервис завещаний - с нами надежнее! | 8-800-5555-35-35
+SCP-завещалка - с нами надежнее!
 </div>
 
 <script>

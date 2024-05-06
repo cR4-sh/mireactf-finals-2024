@@ -10,7 +10,7 @@ if (isset($_SESSION['user'])) {
 if (isset($_POST['login']) && isset($_POST['password'])) {
     $filename = './users/'.md5($_POST['login'].getenv('SECRET')).'.txt';
     if (!file_exists($filename)){
-        $err = 'Броу, такого пользователя нет...';
+        $err = 'Такого сотрудника не сущесвует...';
         header('Location: /login.php?err='.urlencode($err));
         echo($err);
         die();
@@ -18,7 +18,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 
     $user = unserialize(file_get_contents($filename));
     if ($_POST['password'] !== $user->password){
-        $err = 'Ацццааца, неправильные креды(';
+        $err = 'Неверный пароль, дорогой сотрудник';
         header('Location: /login.php?err='.urlencode($err));
         echo($err);
         die();
@@ -38,13 +38,16 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="static/css/styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-<title>Завещательница</title>
+<title>Завещалка</title>
 </head>
 <body>
 
 <div class="content-wrap">
     <div class="navbar">
-        <span class="navbar-brand">Завещательница</span>
+        <div class="navbar-left">
+        <a href="/index.php"><img src="/static/img/logo.png"></a>
+        <a href="/index.php"><span class="navbar-brand">Завещалка</span></a>
+        </div>
         <div>
             <a href="login.php">Вход в аккаунт</a>
             <a href="register.php">Регистрация</a>
@@ -54,10 +57,10 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
         <div class="form-title">Вход в аккаунт</div>
         <form action="login.php" method="post">
             <div class="form-field">
-                <input name="login" class="textarea-text" placeholder="Логин"></textarea>
+                <input name="login" class="textarea-text" placeholder="Логин" autocomplete="off"></textarea>
                 <input type="password" name="password" class="textarea-text" placeholder="Пароль"></textarea>
             </div>
-            <button type="submit" class="submit-button">Вход</button>
+            <button type="submit" class="submit-button"><b>Вход</b></button>
         </form>
     
     </div>
@@ -71,7 +74,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 </div>
 <!-- about -->
 <div class="footer">
-Сервис завещаний - с нами надежнее! | 8-800-5555-35-35
+SCP-завещалка - с нами надежнее!
 </div>
 </body>
 </html>

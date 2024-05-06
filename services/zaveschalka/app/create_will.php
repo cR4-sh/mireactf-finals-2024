@@ -6,7 +6,7 @@ include "models/user.php";
 
 if (isset($_POST['title']) && isset($_POST['will'])) {
     if (strlen($_POST['title']) > 0 && strlen($_POST['will']) > 0 && !preg_match('/^[a-zA-Z0-9]+$/', $_POST['title']) || !preg_match('/^[a-zA-Z0-9=]+$/', $_POST['will'])){
-        $err = 'Не получишь завещание!';
+        $err = 'Так мы не сможем запечетлить ваше последнее слово!';
         header('Location: /create_will.php?err='.urlencode($err));
         echo($err);
         die();
@@ -58,13 +58,16 @@ if (isset($_POST['title']) && isset($_POST['will'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="static/css/styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-<title>Завещательница</title>
+<title>Завещалка</title>
 </head>
 <body>
 
 <div class="content-wrap">
     <div class="navbar">
-        <span class="navbar-brand">Завещательница</span>
+        <div class="navbar-left">
+        <a href="/index.php"><img src="/static/img/logo.png"></a>
+        <a href="/index.php"><span class="navbar-brand">Завещалка</span></a>
+        </div>
         <div>
             <a href="profile.php">Профиль</a>
             <a href="create_will.php">Создать завещание</a>
@@ -73,20 +76,21 @@ if (isset($_POST['title']) && isset($_POST['will'])) {
     </div>    
     <div class="form-wrapper">
         <div class="form-title">Завещание</div>
-        <div class="form-description">Добавьте ваше завещание ниже и нажмите "Сохранить".</div>
+        <div class="form-description">Здесь вы можете сказать свое последнее слово.</div>
         <form class= "hui" action="create_will.php" method="post">
             <div class="form-field">
             <label for="noteTextarea"></label>
-            <input id="noteTextarea" name="title" class="input-area-text" placeholder="Называние завещания"></textarea>
-            <textarea id="noteTextarea" name="will" class="textarea-text-big" placeholder="Завещание" rows="4"></textarea>
+            <input id="noteTextarea" name="title" class="input-area-text textarea-text" placeholder="Называние завещания">
+            <textarea id="noteTextarea" name="will" class="textarea-text-big textarea-text" placeholder="Завещание" rows="4"></textarea>
             </div>
             <div class="form-field access-field">
                 <label for="accessText">Кому выдать доступ</label>
                 
                 <button type="button" class="add-button">+</button>
             </div>
-
-            <button type="submit" class="submit-button">Сохранить</button>
+            <div class="sub">
+                <button type="submit" class="submit-button"><b>Сохранить</b></button>
+            </div>
         </form>
     </div>
     <?php
@@ -98,16 +102,15 @@ if (isset($_POST['title']) && isset($_POST['will'])) {
     ?>
 
 </div>
-<!-- about -->
 <div class="footer">
-Сервис завещаний - с нами надежнее! | 8-800-5555-35-35
+SCP-завещалка - с нами надежнее!
 </div>
 
 <script>
 let count = 0;
 document.querySelector('.add-button').addEventListener('click', function() {    
     var newDiv = document.createElement('div');
-    newDiv.innerHTML = '<input id="noteTextarea" name="username'+count+'" class="input-area-text" placeholder="Логин получателя доступа" rows="4"></textarea>';
+    newDiv.innerHTML = '<input autocomplete="off" id="noteTextarea" name="username'+count+'" class="input-area-text textarea-text" placeholder="Логин сотрудника" rows="4"></textarea>';
     document.querySelector('.form-field').appendChild(newDiv);
     count += 1;
 });

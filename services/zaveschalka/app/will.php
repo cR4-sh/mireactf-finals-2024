@@ -8,13 +8,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="static/css/styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-<title>Завещательница</title>
+<title>Завещалка</title>
 </head>
 <body>
 
 <div class="content-wrap">
   <div class="navbar">
-    <span class="navbar-brand">Завещательница</span>
+    <div class="navbar-left">
+      <a href="/index.php"><img src="/static/img/logo.png"></a>
+      <a href="/index.php"><span class="navbar-brand">Завещалка</span></a>
+    </div>
     <div>
       <a href="profile.php">Профиль</a>
       <a href="create_will.php">Создать завещание</a>
@@ -60,17 +63,17 @@
                   </div>
                 </div>';
         } else {
-          echo '<div class="message message-error">У тебя нет доступа к этому завещанию</div>';
+          echo '<div class="message message-error">У вас нет доступа к этому завещанию</div>';
         }
 
       } else {
-        echo '<div class="message message-error">Такого завещания несуществует(</div>';
+        echo '<div class="message message-error">Такого завещания несуществует</div>';
       }
     ?>
   
     </div>
   <div class="footer">
-  Сервис завещаний - с нами надежнее! | 8-800-5555-35-35
+  SCP-завещалка - с нами надежнее!
   </div>
 </div>
 </body>

@@ -10,28 +10,28 @@ if (isset($_SESSION['user'])) {
 
 if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['phone']) && isset($_POST['email'])) {
     if (!preg_match('/^[a-zA-Z0-9]+$/', $_POST['login']) || !preg_match('/^[a-zA-Z0-9]+$/', $_POST['password'])){
-        $err = 'Ацаца, никакого тебе завещения за такие креды!';
+        $err = 'Вы ввели неккоректные данные о себе, сотрудник';
         header('Location: /register.php?err='.urlencode($err));
         echo($err);
         die();
     }
 
     if (!preg_match('/^[0-9]+$/', $_POST['phone'])){
-        $err = 'Ацаца, никакого тебе завещения за такой номер телефона!';
+        $err = 'Вы ввели неккоректные данные о себе, сотрудник';
         header('Location: /register.php?err='.urlencode($err));
         echo($err);
         die();
     }
 
     if (!preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i', $_POST['email'])){
-        $err = 'Ацаца, никакого тебе завещения за такую почту!';
+        $err = 'Вы ввели неккоректные данные о себе, сотрудник';
         header('Location: /register.php?err='.urlencode($err));
         echo($err);
         die();
     }
 
     if (file_exists('./users/'.md5($_POST['login'].getenv('SECRET')).'.txt')){
-        $err = 'Такой пользователь уже существует';
+        $err = 'Такой сотрудник уже зарегистрирован';
         header('Location: /register.php?err='.urlencode($err));
         echo($err);
         die();
@@ -40,7 +40,7 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['phone']
     $user = new User($_POST);
     $_SESSION['user'] = $user->login;
     header('Location: /profile.php');
-    echo('Создал пользователя '.$_SESSION['user']);
+    echo('Зарегистрировал сотрудника '.$_SESSION['user']);
     die();
 } 
 
@@ -52,28 +52,31 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['phone']
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="static/css/styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-<title>Завещательница</title>
+<title>Завещалка</title>
 </head>
 <body>
 
 <div class="content-wrap">
     <div class="navbar">
-        <span class="navbar-brand">Завещательница</span>
+        <div class="navbar-left">
+            <a href="/index.php"><img src="/static/img/logo.png"></a>
+            <a href="/index.php"><span class="navbar-brand">Завещалка</span></a>
+        </div>
         <div>
             <a href="login.php">Вход в аккаунт</a>
             <a href="register.php">Регистрация</a>
         </div>
     </div>    
     <div class="form-login">
-        <div class="form-title">Создайте пользователя</div>
+        <div class="form-title">Регистрация сотрудника</div>
         <form action="register.php" method="post">
             <div class="form-field">
-                <input name="login" class="textarea-text" placeholder="Логин"></textarea>
-                <input type="password" name="password" class="textarea-text" placeholder="Пароль"></textarea>
-                <input name="email" class="textarea-text" placeholder="Email"></textarea>
-                <input name="phone" class="textarea-text" placeholder="Телефон"></textarea>
+                <input name="login" class="textarea-text" placeholder="Логин" autocomplete="off"></textarea>
+                <input type="password" name="password" class="textarea-text" placeholder="Пароль" autocomplete="off"></textarea>
+                <input name="email" class="textarea-text" placeholder="Email" autocomplete="off"></textarea>
+                <input name="phone" class="textarea-text" placeholder="Телефон" autocomplete="off"></textarea>
             </div>
-            <button type="submit" class="submit-button">Сохранить</button>
+            <button type="submit" class="submit-button"><b>Зарегистрировать</b></button>
         </form>
     
     </div>
@@ -86,7 +89,7 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['phone']
     ?>
 </div>
 <div class="footer">
-Сервис завещаний - с нами надежнее! | 8-800-5555-35-35
+SCP-завещалка - с нами надежнее!
 </div>
 
 <script>

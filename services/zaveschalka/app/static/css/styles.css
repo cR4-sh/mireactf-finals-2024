@@ -3,6 +3,7 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: 'Roboto', sans-serif;
+  background-color: #000;
   height: 100%; 
 }
 .content-wrap {
@@ -17,41 +18,50 @@ body, html {
   height: 20px; 
 }
 .navbar {
-  background-color: #007bff;
-  color: white;
+  background-color: #000;
   padding: 20px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
-  box-shadow: 0 15px 20px rgba(0,0,0,0.1);
+}
+.navbar-left {
+  display: flex;
+  align-items: center;
 }
 .navbar-brand {
+  margin-left: 20px;
   font-size: 30px;
   font-weight: bold;
-  color: white; 
+  color: #ff9100; 
 }
-.navbar a {
-  color: white;
+a:link, a:visited, a:hover, a:active {
+  color: #ff9100;
   text-decoration: none;
   margin: 0 10px;
+}
+a:hover {
+  text-decoration: underline;
 }
 table {
   width: 100%;
   border-collapse: collapse;
 }
-table, th, td {
-  border: 1px solid #ddd;
+table, td, th, tr {
+  color:#ff9100;
+  border: 1px solid #ff9100;
+  background-color: #000 ;
 }
 th, td {
   padding: 10px;
   text-align: left;
 }
 th {
-  background-color: #f2f2f2;
+  background-color: #000 ;
 }
 .footer {
-  background-color: #f2f2f2;
+  background-color: #000;
+  color:#ff9100;
   padding: 20px;
   text-align: center;
   position: relative;
@@ -67,15 +77,22 @@ th {
   line-height: 1.4;
 }
 
+.profile-info {
+  color:#ff9100;
+  font-size: 20px;
+}
 .message-large {
   font-size: 25px; 
 }
 
 .message-error {
   text-align: center;
-  max-width: 40%;
-  border-left: 10px solid #ff0000;
+  max-width: 20%;
+  color: #ff9100;
+  border-left: 10px solid #ff9100;
+  background-color: #1b1a1a;
   font-size: 15px;
+  box-shadow: 0 1px 15px #ff9100;
 }
 
 /* ------------------------------------- */
@@ -83,27 +100,28 @@ th {
   width: 600px; 
   margin: 20px auto; 
   padding: 30px;
-  background-color: #f9f9f9;
+  background-color: #1b1a1a;
   border-radius: 8px;
-  box-shadow: 0 10px 14px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 15px #ff9100;
 }
 
 .form-login {
   width: 300px;
   margin: 20px auto; 
   padding: 30px;
-  background-color: #f9f9f9;
+  background-color: #1b1a1a;
   border-radius: 8px;
-  box-shadow: 0 10px 14px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 15px #ff9100;
 }
 
 .access-field {
   padding: 10px;
+  color: #ff9100;
 }
 
 .form-title {
   margin-bottom: 10px;
-  color: #333;
+  color: #ff9100;
   font-size: 24px;
   text-align: center;
 }
@@ -120,22 +138,33 @@ th {
   font-size: 20px;
   width: 100%; 
   padding: 10px;
+  height: 45px;
   margin-bottom: 20px;
   align-items: center;
   border-radius: 5px;
-  border: 1px solid #ddd;
-  box-sizing: border-box; 
+  border: 1px solid #ff9100;
+  background-color: #000;
+  box-sizing: border-box;
+  color: #ff9100;
   resize: none; 
+}
+.textarea-text:hover {
+  border: 2px solid #ff9100;
 }
 
 .textarea-text-big {
-  width: calc(100% - 20px);
+  width: calc(100% - 10px);
+  font-size: 20px;
+  height: 50px;
   padding: 10px;
   margin-bottom: 20px;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  color: #ff9100;
+  border: 1px solid #ff9100;
+  background-color: #000;
   box-sizing: border-box; 
   resize: vertical;
+  min-height: 50px;
 }
 
 .input-area-text {
@@ -145,42 +174,48 @@ th {
   margin-bottom: 20px;
   align-self: left;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  background-color: #000;
+  border: 1px solid #ff9100;
+  color:#ff9100;
   box-sizing: border-box; 
   resize: none; 
+}
+
+.sub {
+  text-align: center;
 }
 
 .submit-button {
   display: block;
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
-  color: white;
+  background-color: #ff9100;
+  color: black;
+  font-size: 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: #bc6b00;
 }
 .add-button {
   padding: 5px 10px;
   margin-left: 10px;
-  background-color: #007bff;
-  color: white;
+  background-color: #ff9100;
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .add-button:hover {
-  background-color: #0056b3;
+  background-color: #bc6b00;
 }
 
-
-
 .welcome-page {
+  background-color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -191,9 +226,10 @@ th {
 }
 
 .welcome-message {
-  font-size: 48px; 
+  background-color: #000;
+  font-size: 30px; 
+  color: #ff9100;
   padding: 20px;
-  background-color: #f9f9f9;
   border-radius: 8px;
 }
 
@@ -202,7 +238,7 @@ th {
   padding: 10px 20px;
   font-size: 18px;
   color: #fff;
-  background-color: #007bff;
+  background-color: #ff9100;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -210,10 +246,19 @@ th {
 }
 
 .welcome-button:hover {
-  background-color: #0056b3;
+  background-color: #bc6b00;
 }
 
 .welcome-message ul {
   list-style-type: none;
   padding-left: 20px;
+}
+
+textarea:focus, input:focus {
+  outline: 2px solid #ff9100;
+}
+
+img {
+  margin-top: 3px;
+  width: 40px;
 }
