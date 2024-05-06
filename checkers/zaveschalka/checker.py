@@ -75,7 +75,7 @@ class Checker(BaseChecker):
         title = self._random_chars
         will_id = self.lib.create_will(session1, title, flag, username2)
 
-        self.cquit(Status.OK, {"username1" :username1, "username2": username2, "will_id": will_id}, f"{username1}:{password1}:{username2}:{password2}:{will_id}")
+        self.cquit(Status.OK, '{"username1": "' + username1 + '", "username2": "' + username2 + '", "will_id": "'+ will_id+'"}', f"{username1}:{password1}:{username2}:{password2}:{will_id}")
 
     def get(self, flag_id: str, flag: str, vuln: str):
         username1, password1, username2, password2, will_id = flag_id.split(':')
