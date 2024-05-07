@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  scpgram-db:
+    container_name: scpgram-db
+    build: ./db
+    restart: always
+    environment:
+      - POSTGRES_USER=scpgram
+      - POSTGRES_PASSWORD=P4ssw0rd
+  scpgram-app:
+    container_name: scpgram-app
+    build: ./src
+    restart: always
+    environment:
+      - DB_HOST=scpgram-db
+    ports:
+      - 17788:8000

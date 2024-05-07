@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <script src="/static/js/main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Chats</h1>
+        <div class="chat-container">
+            <ul class="chat-list">
+            </ul>
+        </div>
+    </div>
+
+    <div class="central-container">
+        <img src="/static/img/scp.jpg" alt="logo">
+        <div class="welcome-text">
+            <h1>Добро пожаловать в наше приложение для секретных чатов!</h1>
+            <p>Мы предоставляем безопасное и защищенное пространство для общения с вашими коллегами и партнерами, где конфиденциальность является нашим главным приоритетом.</p>
+            <p>Каждое сообщение, отправленное через наше приложение, <span style="text-decoration: line-through;">зашифровано</span> и хранится в безопасности, обеспечивая полную конфиденциальность вашей переписки.</p>
+            <p>Мы строго следим за соблюдением принципов безопасности и конфиденциальности, и любое нарушение будет немедленно пресечено.</p>
+            <p>Присоединяйтесь к нам прямо сейчас и получите доступ к безопасному и защищенному общению внутри вашего рабочего сообщества!</p>
+            <p>Помните, что с вами присутствует ответственность за соблюдение тайны и конфиденциальности всех обсуждаемых в нашем приложении тем.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="module-container">
+            <button class="create-chat-btn" onclick="Logout()">Logout</button>
+            <button class="create-chat-btn" onclick="showCreateChatDialog()">New Chat</button>
+        </div>
+        <h1>Users</h1>
+        <ul class="user-list">
+        </ul>
+    </div>
+
+    <div id="createChatDialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="hideCreateChatDialog()">&times;</span>
+            <h2>New chat</h2>
+            <form id="newChatForm">
+                <label ></label>
+                <input type="text" id="chatnameInput" name="chat_name" placeholder="Chat name" required><br><br>
+                <button onclick="createNewChat(); return false;">Create chat</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

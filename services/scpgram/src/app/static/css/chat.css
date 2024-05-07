@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #ffa500; 
+    margin: 0;
+    padding: 20px;
+}
+h1 {
+    color: #ffa500; 
+}
+#messagesList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ffa500; 
+    border-radius: 5px;
+    background-color: #000;
+    padding: 10px;
+}
+#messagesList li {
+    margin-bottom: 10px;
+}
+textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ffa500; 
+    border-radius: 5px;
+    resize: none;
+    color: #ffa500; 
+    background-color: #000;
+}
+button {
+    padding: 10px 20px;
+    background-color: #ffa500; 
+    color: #000; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #ff8800;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); 
+}
+
+
+.modal-content {
+    background-color: #ffa60014;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    border-radius: 5px;
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button {
+    background-color: orange;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#usernameInput {
+    width: 50%;
+    background-color: #444;
+    padding: 10px;
+    color: #ffff;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+#addUserForm input[type="submit"] {
+    background-color: orange; 
+    color: #000; 
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#addUserForm input[type="submit"]:hover {
+    background-color: #ff8800; 
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #333;
+  }
+  
+  ::-moz-scrollbar {
+    width: 12px;
+  }
+  
+  ::-moz-scrollbar-thumb {
+    background-color: #333;
+  }

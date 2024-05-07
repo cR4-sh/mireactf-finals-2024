@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/auth.css">
+</head>
+<body>
+  <form id="authForm" action="/login" method="POST"> 
+    <input id="signup" name="action" type="radio" value="signup">
+    <label for="signup">Sign up</label>
+
+    <input checked="" id="signin" name="action" type="radio" value="signin">
+    <label for="signin">Sign in</label>
+
+
+    <div id="wrapper">
+      <div id="arrow"></div>
+      <input id="username" name="username" placeholder="Username" type="text">
+      <input id="pass" name="password" placeholder="Password" type="password">
+    </div>
+    <button type="submit">
+      <span>
+        Sign up         
+        <br>
+        Sign in
+      </span>
+    </button>
+  </form>
+  <span id="feed">{{ error }}</span>
+  <div id="hint">Powered by Secure Contain Protect...</div>
+  </body>
+</html>

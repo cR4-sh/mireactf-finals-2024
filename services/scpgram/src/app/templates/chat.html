@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/chat.css"> 
+    <title>Secure Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" crossorigin="anonymous"></script>
+    <script src="/static/js/chat.js" ></script>
+</head>
+<body>
+    <h1>{{ chat_name }}</h1>
+    <input type="text" id="chat_id" placeholder="Enter Chat ID" hidden value="{{chat_id}}"><br><br>
+    <ul id="messagesList"></ul><br>
+    <textarea id="message" placeholder="Type your message here"></textarea><br><br>
+    <button onclick="sendMessage()">Send Message</button><br><br>
+
+    <button onclick="showAddUserModal()" style="position: absolute; top: 10px; right: 10px;">Add User</button>
+    <button onclick="redirectToProfile()" style="position: absolute; top: 10px; right: 120px;">Go to Main</button>
+
+
+    <div id="addUserModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="hideAddUserModal()">&times;</span>
+            <h2>Add user to chat</h2>
+            <form id="addUserForm">
+                <label for="usernameInput"></label>
+                <input type="text" id="usernameInput" name="username" placeholder="Username" required><br><br>
+                <button onclick="addUserToChat(); return false;">Add User</button>
+                <button onclick="removeUserFromChat(); return false;">Remove User</button><br><br>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <h2>Chat Members</h2>
+        <ul id="membersList"></ul>
+    </div>
+</body>
+</html>
