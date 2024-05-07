@@ -34,8 +34,8 @@ class WillLib:
             })
         except requests.exceptions.ConnectionError:
             self.c.cquit(Status.DOWN)
-        self.c.assert_in('profile.php', resp.url, f'Failed to register')
-        self.c.assert_eq(200, resp.status_code, 'Failed to register')
+        self.c.assert_in('profile.php', resp.url, f'Failed to register (url)')
+        self.c.assert_eq(200, resp.status_code, 'Failed to register (status)')
         self._check_profile(resp.text, username, email, phone)
 
 
@@ -47,8 +47,8 @@ class WillLib:
             })
         except requests.exceptions.ConnectionError:
             self.c.cquit(Status.DOWN)
-        self.c.assert_in('profile.php', resp.url, f'Failed to login')
-        self.c.assert_eq(200, resp.status_code, 'Failed to login')
+        self.c.assert_in('profile.php', resp.url, f'Failed to login (url)')
+        self.c.assert_eq(200, resp.status_code, 'Failed to login (status)')
         self._check_profile(resp.text, username, email, phone)
     
     def create_will(self, session: requests.Session, title: str, will: str, username_to_share: str):
@@ -60,8 +60,8 @@ class WillLib:
             })
         except requests.exceptions.ConnectionError:
             self.c.cquit(Status.DOWN)
-        self.c.assert_in('will.php?id=', resp.url, 'Failed to create will')
-        self.c.assert_eq(200, resp.status_code, 'Failed to create will')
+        self.c.assert_in('will.php?id=', resp.url, 'Failed to create will (url)')
+        self.c.assert_eq(200, resp.status_code, 'Failed to create will (status)')
         return self._get_will_id(resp.url)
     
     def check_will(self, session: requests.Session, will_id: str, flag: str, is_shared: bool = False):
@@ -69,5 +69,6 @@ class WillLib:
             resp = session.get(f'{self.api_url}/will.php?id={will_id}')
         except requests.exceptions.ConnectionError:
             self.c.cquit(Status.DOWN)
-        self.c.assert_in(flag, resp.text, f"Failed to get {'shared ' if is_shared else ''}will", Status.CORRUPT)
-        self.c.assert_eq(200, resp.status_code, 'Failed to create will')
+        
+        self.c.assert_in(flag, resp.text, f"Failed to get {'shared ' if is_shared else ''}will (flag)", Status.CORRUPT)
+        self.c.assert_eq(200, resp.status_code, f"Failed to get {'shared ' if is_shared else ''}will (status)", Status.CORRUPT)
