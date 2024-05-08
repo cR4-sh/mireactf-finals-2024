@@ -12,7 +12,7 @@ sio = socketio.SimpleClient()
 class TestLib:
     @property
     def api_url(self):
-        return f'http://{self.host}:{self.port}/'
+        return f'http://{self.host}:{self.port}'
 
     def __init__(self, checker: BaseChecker, port=PORT, host=None):
         self.c = checker
@@ -101,10 +101,12 @@ class TestLib:
             event = sio.receive()
             mess = event[1]['message']
             fin_flag = '<code>' + flag + '</code></p>'
+            sio.disconnect()
             if fin_flag in mess and '<p>' in mess and sender == event[1]['sender']:
                 return 1
             return 0
         except Exception:
+            sio.disconnect()
             return 0
             
         
@@ -116,10 +118,12 @@ class TestLib:
             event = sio.receive()
             mess = event[1]['message']
             fin_flag = '<code>' + flag + '</code></p>'
+            sio.disconnect()
             if fin_flag in mess and '<p>' in mess and sender == event[1]['sender']:
                 return 1
             return 0
         except Exception:
+            sio.disconnect()
             return 0
 
 
