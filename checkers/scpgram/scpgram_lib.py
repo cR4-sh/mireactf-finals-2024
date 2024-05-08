@@ -31,7 +31,7 @@ class TestLib:
             'username': username,
             'password': password,
             'action': 'signup'
-        })
+        ,}, timeout=15)
         self.c.assert_eq(resp.status_code, 200, 'Failed to signup')
         resp_data = self.c.get_text(resp, 'Failed to signup: invalid data')
         return resp_data
@@ -42,7 +42,7 @@ class TestLib:
             'username': username,
             'password': password,
             'action': 'signin'
-        })
+        }, timeout=15)
         self.c.assert_eq(resp.status_code, 200, 'Failed to signin', status=status)
         resp_data = self.c.get_text(resp, 'Failed to signin: invalid data')
         return resp_data
@@ -51,7 +51,7 @@ class TestLib:
     def createChat(self, session: requests.Session, status: checklib.Status = checklib.Status.MUMBLE):
         resp = session.post(f'{self.api_url}/api/chat/create', json={
             'chat_name': genChatName()
-        })
+        }, timeout=15)
         self.c.assert_eq(resp.status_code, 200, 'Cant create chat', status=status)
         chat_uuid = self.c.get_json(resp, 'Cant create chat: invalid data')['chat_id']
 
@@ -61,7 +61,7 @@ class TestLib:
     def addUserToChat(self, session: requests.Session, chat_uuid: str,  username: str, status: checklib.Status = checklib.Status.MUMBLE):
         resp = session.post(f'{self.api_url}/api/chat/{chat_uuid}/add_user', json={
             'username':username
-        })
+        }, timeout=15)
         self.c.assert_eq(resp.status_code, 200, 'Cant invite user', status=status)
         res = self.c.get_json(resp, 'Cant invite user: invalid data')['message']
 
@@ -71,7 +71,7 @@ class TestLib:
     
 
     def getChatUsers(self, session: requests.Session, chat_uuid: str,  username: str, status: checklib.Status = checklib.Status.MUMBLE):
-        resp = session.get(f'{self.api_url}/api/chat/{chat_uuid}/members')
+        resp = session.get(f'{self.api_url}/api/chat/{chat_uuid}/members', timeout=15)
         self.c.assert_eq(resp.status_code, 200, 'Cant get chat users', status=status)
         res = self.c.get_json(resp, 'Cant get chat users: invalid data')
         for user in res:
@@ -83,7 +83,7 @@ class TestLib:
     def removeUserFromChat(self, session: requests.Session, chat_uuid: str,  username: str, status: checklib.Status = checklib.Status.MUMBLE):
         resp = session.post(f'{self.api_url}/api/chat/{chat_uuid}/remove_user', json={
             'username':username
-        })
+        }, timeout=15)
         self.c.assert_eq(resp.status_code, 200, 'Cant remove user', status=status)
         res = self.c.get_json(resp, 'Cant remove user: invalid data')['message']
 
