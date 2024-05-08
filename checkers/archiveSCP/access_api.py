@@ -70,7 +70,7 @@ class AccessApi:
         return name
     
     def createObject(self, session: requests.Session, name: str, description: str, flag: str):
-        resp = session.post(f'{self.api_url}/create_scp', data={"name":name, "description":description + f"\n{flag}"}, files={"image": open("images/"+random.choice(image_files), 'rb')})
+        resp = session.post(f'{self.api_url}/create_scp', data={"name":name, "description":description + f"\n{flag}"}, files={"image": open(images_path+"/"+random.choice(image_files), 'rb')})
         self.c.assert_eq(resp.status_code, 200, 'Failed to create SCP')
         return name
     
