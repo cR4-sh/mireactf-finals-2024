@@ -1,0 +1,11 @@
+{{ template "head" . }}
+<body>
+    {{ template "header" . }}
+    <img src="data:image/png;base64,{{.imagedata}}" class="ObjectImage" alt="Not Found">
+    <div id="content">
+        <h1>{{ .name }}</h1>
+        {{ range .description }}
+        <p>{{ . }}</p>
+        {{ end }}
+    </div>
+</body>

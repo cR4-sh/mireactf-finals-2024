@@ -1,0 +1,39 @@
+{{ template "head" . }}
+<body>
+{{ template "header" . }}
+{{ if .user.Department }}
+    <div style="text-align: center; width: 50%;margin-left: 25%;margin-top: 1%;">
+        <h2>Создать статью</h2>
+        <form action="/create_scp" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Имя:</label><br>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Название" required><br><br>
+
+                <label for="image">Загрузить картинку:</label><br>
+                <input type="file" id="image" name="image" accept="image/*"><br><br>
+
+                <label for="description">Описание:</label><br>
+                <textarea id="description" class="form-control" name="description" placeholder="Описание" required></textarea><br><br>
+            </div>
+            <button type="submit" class="btn btn-primary btn-login btn-block">Создать</button>
+            {{ if .error }}
+            <p style="color: red;padding-left: 10px;padding-top: 20px;">{{ .error }}</p>
+            {{ end }}
+        </form>
+    </div>
+{{ else }}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center mt-5">
+            <h1>Вы не состоите в отделе!</h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-4">
+            <button type="button" class="btn btn-primary btn-lg btn-block btn-login" onclick="location.href='/create_department'">Создать отдел</button>
+        </div>
+    </div>
+</div>
+{{ end }}
+</body>
