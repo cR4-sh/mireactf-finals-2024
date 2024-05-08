@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-PORT = 8000
+PORT = 2324
 images_path = './images'
 image_files = [f for f in os.listdir(images_path) if os.path.isfile(os.path.join(images_path, f))]
 
