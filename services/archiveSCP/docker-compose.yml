@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+    mongo:
+        image: mongo
+        container_name: mongodb
+    web:
+        depends_on:
+            - mongo
+        build: ./web/
+        ports:
+        - "2324:8000"

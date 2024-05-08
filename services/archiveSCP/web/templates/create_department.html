@@ -1,0 +1,17 @@
+{{ template "head" . }}
+<body>
+    {{ template "header" . }}
+    <div style="text-align: center; width: 50%;margin-left: 25%;margin-top: 1%;">
+        <h2>Создать отдел</h2>
+        <form action="/create_department" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" id="name_department" name="name_department"  required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-login btn-block">Создать</button>
+            {{ if .error }}
+            <p style="color: red;padding-left: 10px;padding-top: 20px;">{{ .error }}</p>
+            {{ end }}
+        </form>
+    </div>
+</body> 
+</html>

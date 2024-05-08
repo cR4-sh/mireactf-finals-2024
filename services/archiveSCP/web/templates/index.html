@@ -1,0 +1,146 @@
+{{ define "head" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/resources/images/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP Archive</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #141414;
+            color: #fff;
+        }
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 7px;
+            text-align: center;
+        }
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        #banner {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            align-items: center;
+            display: flex;
+        }
+        #content {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+        }
+        #content h2 {
+            color: #ff6f00;
+            font-size: 30px;
+            text-align: center;
+        }
+        #content h1 {
+            color: #ff6f00;
+            font-size: 30px;
+            text-align: center;
+        }
+        #content ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        #content ul li {
+            margin-bottom: 10px;
+            font-size: 25px;
+        }
+        a {
+            color: #ff6f00;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        #banner img {
+            width: 30px;
+            height: 30px;
+            margin-right: 30px;
+            margin-left: 10px;
+        }
+    
+        #content img {
+            width: 10%;
+            height: 10%;
+            float: right;
+        }
+    
+    
+        #content h1 {
+            color: #ff6f00;
+            font-size: 30px;
+            text-align: left;
+        }
+    
+    
+        .ObjectImage {
+            width: 20%;
+            height: 20%;
+            float: right;
+            margin: 30px;
+            border: 2px solid white;
+        }
+        .btn-login {
+        background-color: #ff6f00;
+        border-color: #ff6f00;
+        }
+    </style>
+</head>
+{{end}}
+<body>
+    {{ define "header" }}
+    <header>
+        
+        <div id="banner" style="height: 90px;font-size: small;">
+            <img src="resources/images/warning_sign.png" alt="Warning Sign">
+            <p>Предупреждение: Распространение, передача или использование информации из данного архива без официального разрешения SCP Foundation является прямым нарушением международных протоколов о безопасности. Лица, замеченные в раскрытии или передаче секретной информации, будут подвергнуты самым строгим мерам наказания, включая, но не ограничиваясь, арестом, тюремным заключением на неопределенный срок, и в некоторых случаях, исполнением смертной казни. Все попытки игнорировать или обойти это предупреждение будут рассматриваться как акт враждебности к глобальной безопасности и приведут к немедленным санкциям. SCP Foundation непреклонно стоит на страже секретности, и любые попытки нарушить эту секретность будут подавлены с учетом всех доступных средств и ресурсов.
+            </p>
+        </div>
+        
+        <div style="display: flex;">
+            <div style="display:inline; margin-right: -5%;">
+                <div style="padding-left: 10px;padding-top: 80px;position: absolute;color: #000;font-size: large;text-align: left;line-height: 3px;">
+                    <p>Имя: {{ .user.Username }}</p>
+                    <p>Отдел: {{ .user.Department }}</p>
+                </div>
+                <img src="resources/images/levelcard.png" alt="Level card", style="width: 250px;float: left;padding-left: 5px;">
+            </div>
+            <div style="margin: 0 auto;">
+                <img src="resources/images/scp_logo.jpg" alt="SCP Logo" style="height: 70px;">
+                <h1>SCP - Secure Contain Protect</h1>
+            </div>
+            <div style="text-align: right;font-size: large;">
+                <a href="/" style="display: block;">Архив</a>
+                <a href="/department" style="display: block;">Ваш отдел</a>
+                <a href="/create_department" style="display: block;">Создать отдел</a>
+                <a href="/create_scp" style="display: block;">Создать статью</a>
+                <a href="/logout" style="display: block;">Выйти из аккаунта</a>
+            </div>
+        </div>
+    </header>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {{ end }}
+</body>
+</html>
