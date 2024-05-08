@@ -63,7 +63,7 @@ class Checker(BaseChecker):
             self.cquit(Status.MUMBLE)
 
 
-        self.cquit(Status.OK)
+        self.cquit(Status.OK, )
 
     def put(self, flag_id: str, flag: str, vuln: str):
         ping = self.lib.ping()
@@ -84,7 +84,8 @@ class Checker(BaseChecker):
         name_scp = self.lib.createObject(sess, self.lib.GetScpName(), Faker('ru_RU').text(1000), flag)
         self.lib.invite(session, u2)
         if name_scp:
-            self.cquit(Status.OK, u1, f"{u2}:{p2}:{name_scp}")
+            print('{"username": "' + u1 + '","department":"' + department + '"}')
+            self.cquit(Status.OK, '{"username": "' + u1 + '","department":"' + department + '"}', f"{u2}:{p2}:{name_scp}")
 
         self.cquit(Status.MUMBLE)
 
