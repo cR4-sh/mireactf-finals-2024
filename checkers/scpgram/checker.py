@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python3
 import random
 import sys
 
@@ -10,7 +10,7 @@ import scpgram_lib
 
 class Checker(BaseChecker):
     vulns: int = 1
-    timeout: int = 15
+    timeout: int = 25
     uses_attack_data: bool = True
 
     req_ua_agents = ['python-requests/2.{}.0'.format(x) for x in range(15, 28)]

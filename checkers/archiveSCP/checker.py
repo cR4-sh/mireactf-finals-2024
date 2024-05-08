@@ -48,22 +48,19 @@ class Checker(BaseChecker):
         self.lib.signup(session, username2, password2)
         session = self.lib.signin(session, username1, password1)
         self.lib.createDepartment(session, department)
-        self.lib.createObject(session, scp, Faker().text(1000), "")
+        self.lib.createObject(session, scp, Faker('ru_RU').text(1000), "")
         self.lib.invite(session, username2)
         if not self.lib.checkStaff(session, username2):
-            print("checkStaff")
             self.cquit(Status.MUMBLE)
        
         session = self.lib.signin(session, username2, password2)
         if not self.lib.checkList(session, scp):
-            print("checkList")
             self.cquit(Status.MUMBLE)
         if not self.lib.checkSCP(session, scp, scp):
-            print("checkSCP")
             self.cquit(Status.MUMBLE)
 
 
-        self.cquit(Status.OK)
+        self.cquit(Status.OK, )
 
     def put(self, flag_id: str, flag: str, vuln: str):
         ping = self.lib.ping()
@@ -84,7 +81,7 @@ class Checker(BaseChecker):
         name_scp = self.lib.createObject(sess, self.lib.GetScpName(), Faker('ru_RU').text(1000), flag)
         self.lib.invite(session, u2)
         if name_scp:
-            self.cquit(Status.OK, u1, f"{u2}:{p2}:{name_scp}")
+            self.cquit(Status.OK, '{"username": "' + u1 + '","department":"' + department + '"}', f"{u2}:{p2}:{name_scp}")
 
         self.cquit(Status.MUMBLE)
 
