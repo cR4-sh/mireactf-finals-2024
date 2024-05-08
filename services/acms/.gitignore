@@ -1,0 +1,7 @@
+.vscode
+CMakeFiles
+.gdb_history
+cmake_install.cmake
+CMakeCache.txt
+data
+tests

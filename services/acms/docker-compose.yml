@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - 1079:1079
+  db:
+    restart: always
+    image: postgres:13.3
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./acms.sql:/docker-entrypoint-initdb.d/acms.sql
+    environment:
+      - POSTGRES_USER=acms
+      - POSTGRES_PASSWORD=acms
+      - POSTGRES_DB=acms
