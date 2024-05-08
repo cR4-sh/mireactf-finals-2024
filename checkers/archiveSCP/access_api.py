@@ -9,7 +9,10 @@ from bs4 import BeautifulSoup
 import os
 
 PORT = 2324
-images_path = './images'
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+images_path = os.path.join(script_dir, 'images')
+
 image_files = [f for f in os.listdir(images_path) if os.path.isfile(os.path.join(images_path, f))]
 
 
@@ -53,10 +56,10 @@ class AccessApi:
         return session
     
     def checkSCP(self, session: requests.Session, name: str, flag: str):
-        print(f'{self.api_url}/{name}')
-        print(session.cookies.get("department"))
+        # print(f'{self.api_url}/{name}')
+        # print(session.cookies.get("department"))
         resp = session.get(f'{self.api_url}/{name}', cookies={"department": session.cookies.get("department")})
-        print(resp.text)
+        # print(resp.text)
         if flag in resp.text:
             return 1
         return 0
