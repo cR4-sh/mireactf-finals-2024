@@ -1,7 +1,6 @@
 from pwn import *
 
-
-PORT = 1079
+context.log_level = 'CRITICAL'
 
 
 class ACMS(object):
@@ -10,7 +9,7 @@ class ACMS(object):
         
     def connect(self) -> bool:
         try:
-            self.r = remote(self.host, PORT, timeout=3)
+            self.r = remote(self.host, 1079, timeout=3)
             self.r.timeout = 0.5
         except pwnlib.exception.PwnlibException:
             return False

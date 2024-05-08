@@ -3,6 +3,7 @@ import random
 import checklib
 from checklib import BaseChecker
 import requests
+import os
 
 PORT = 17788
 
@@ -20,7 +21,7 @@ class TestLib:
 
     def ping(self):
         try:
-            requests.get(f'{self.api_url}/')
+            requests.get(f'{self.api_url}')
             return 1
         except Exception as e:
             return 0
@@ -92,28 +93,34 @@ class TestLib:
         
 
     def sendMessage(self, cookie: str, chat_uuid: str, flag: str, sender: str):
-        sio.connect(f'{self.api_url}', headers={'Cookie':f'session={cookie}'})
-        sio.emit('join_room', {'chat_id': chat_uuid})
-        message = genMessage() + '`' + flag + '`'
-        sio.emit('send_message', {'chat_id': chat_uuid, 'message':message})
-        event = sio.receive()
-        mess = event[1]['message']
-        fin_flag = '<code>' + flag + '</code></p>'
-        if fin_flag in mess and '<p>' in mess and sender == event[1]['sender']:
-            return 1
-        return 0
+        try:
+            sio.connect(f'{self.api_url}', headers={'Cookie':f'session={cookie}'})
+            sio.emit('join_room', {'chat_id': chat_uuid})
+            message = genMessage() + '`' + flag + '`'
+            sio.emit('send_message', {'chat_id': chat_uuid, 'message':message})
+            event = sio.receive()
+            mess = event[1]['message']
+            fin_flag = '<code>' + flag + '</code></p>'
+            if fin_flag in mess and '<p>' in mess and sender == event[1]['sender']:
+                return 1
+            return 0
+        except Exception:
+            return 0
             
         
     def getMessage(self, cookie: str, chat_uuid: str, flag: str, sender: str):
-        sio.connect(f'{self.api_url}', headers={'Cookie':f'session={cookie}'})
-        sio.emit('join_room', {'chat_id': chat_uuid})
-        sio.emit('get_messages', {'chat_id': chat_uuid})
-        event = sio.receive()
-        mess = event[1]['message']
-        fin_flag = '<code>' + flag + '</code></p>'
-        if fin_flag in mess and '<p>' in mess and sender == event[1]['sender']:
-            return 1
-        return 0
+        try:
+            sio.connect(f'{self.api_url}', headers={'Cookie':f'session={cookie}'})
+            sio.emit('join_room', {'chat_id': chat_uuid})
+            sio.emit('get_messages', {'chat_id': chat_uuid})
+            event = sio.receive()
+            mess = event[1]['message']
+            fin_flag = '<code>' + flag + '</code></p>'
+            if fin_flag in mess and '<p>' in mess and sender == event[1]['sender']:
+                return 1
+            return 0
+        except Exception:
+            return 0
 
 
 
@@ -121,7 +128,8 @@ def genChatName():
     return 'SCP-' + str(random.randint(0,9999))
 
 def genMessage():
-    with open('pasta.txt', 'r', encoding='utf-8') as bank:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(script_dir, 'pasta.txt'), 'r', encoding='utf-8') as bank:
         lines = bank.readlines()
         random_line = random.choice(lines)
         return random_line
