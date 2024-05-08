@@ -1,7 +1,5 @@
 #!/usr/bin/env -S python3
-
 import sys
-import time
 
 from checklib import *
 from checklib import status
@@ -17,7 +15,7 @@ fake_flag = lambda: ''.join(random.choice(string.ascii_uppercase + string.digits
 
 class Checker(BaseChecker):
     vulns: int = 1
-    timeout: int = 5
+    timeout: int = 20
     uses_attack_data: bool = True
 
     def __init__(self, *args, **kwargs):
@@ -58,7 +56,6 @@ class Checker(BaseChecker):
         self.cquit(Status.OK)
 
     def put(self, flag_id: str, flag: str, vuln: str):
-        s = time.time()
         username = rnd_username(10)
         password = rnd_password()
 
@@ -104,7 +101,6 @@ class Checker(BaseChecker):
         if plebeians:
             plebeian = random.choice(plebeians)
 
-        print(time.time() - s)
         self.cquit(Status.OK, uuid, f'{username}:{password}:{plebeian[0]}:{plebeian[1]}:{str(plebeian[2])}:{device}')
 
     def get(self, flag_id: str, flag: str, vuln: str):
