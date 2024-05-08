@@ -79,7 +79,7 @@ func PostLogin(c *gin.Context) {
 			session.Save()
 			user := logic.GetUserFromSession(c)
 			if user.Department != "" {
-				c.SetCookie("department", logic.GetDepartmentCookie(user.Department), 3600, "/", "", true, true)
+				c.SetCookie("department", logic.GetDepartmentCookie(user.Department), 3600, "/", "", false, true)
 			}
 			c.Redirect(http.StatusFound, "/")
 			return
@@ -97,7 +97,7 @@ func GetLogin(c *gin.Context) {
 func GetMainPage(c *gin.Context) {
 	user := logic.GetUserFromSession(c)
 	if user.Department != "" {
-		c.SetCookie("department", logic.GetDepartmentCookie(user.Department), 3600, "/", "", true, true)
+		c.SetCookie("department", logic.GetDepartmentCookie(user.Department), 3600, "/", "", false, true)
 	}
 	cookie, _ := c.Cookie("department")
 	dep, _ := logic.GetAndVerificate(cookie)
@@ -214,7 +214,7 @@ func GetCreateSCP(c *gin.Context) {
 func Department(c *gin.Context) {
 	user := logic.GetUserFromSession(c)
 	if user.Department != "" {
-		c.SetCookie("department", logic.GetDepartmentCookie(user.Department), 3600, "/", "", true, true)
+		c.SetCookie("department", logic.GetDepartmentCookie(user.Department), 3600, "/", "", false, true)
 	}
 	c.HTML(200, "department.html", gin.H{"user": user, "users": database.GetDepartmentStaff(user.Department)})
 }
