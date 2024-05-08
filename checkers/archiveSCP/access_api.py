@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-PORT = 8000
+PORT = 2324
 images_path = './images'
 image_files = [f for f in os.listdir(images_path) if os.path.isfile(os.path.join(images_path, f))]
 
@@ -82,7 +82,7 @@ class AccessApi:
         return 0
     
     def checkList(self, session: requests.Session, name: str):
-        resp = session.get(f"{self.api_url}/")
+        resp = session.get(f"{self.api_url}/", cookies={"department": session.cookies.get("department")})
         if name in resp.text:
             return 1
         return 0

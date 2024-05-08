@@ -51,12 +51,15 @@ class Checker(BaseChecker):
         self.lib.createObject(session, scp, Faker().text(1000), "")
         self.lib.invite(session, username2)
         if not self.lib.checkStaff(session, username2):
+            print("checkStaff")
             self.cquit(Status.MUMBLE)
        
         session = self.lib.signin(session, username2, password2)
         if not self.lib.checkList(session, scp):
+            print("checkList")
             self.cquit(Status.MUMBLE)
         if not self.lib.checkSCP(session, scp, scp):
+            print("checkSCP")
             self.cquit(Status.MUMBLE)
 
 
