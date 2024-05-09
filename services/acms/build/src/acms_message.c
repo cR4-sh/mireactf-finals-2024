@@ -54,7 +54,10 @@ void acms_set_status_message(acms_logger* logger, char* message)
 void acms_add_journal(acms_logger* logger, char* message, size_t size, char* user_uuid)
 {
     journal_entry* jrl_head = acms_logger_get_journal_head(logger, user_uuid);
+    if (jrl_head == NULL) return;
+
     log_entry* log = acms_alloc_log_entry(logger, jrl_head, user_uuid);
+    if (log == NULL) return;
 
     log->ts = time(0);
     log->msg_size = size;
