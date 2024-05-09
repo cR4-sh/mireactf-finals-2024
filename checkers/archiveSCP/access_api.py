@@ -90,4 +90,12 @@ class AccessApi:
             return 1
         return 0
     
+    def checkInviteWhenInDepartment(self, session : requests.Session, name: str, department: str):
+        resp = session.post(f"{self.api_url}/invite", data={"username": name})
+        if department in resp.text:
+            return 1
+        return 0
+
+
+    
     
