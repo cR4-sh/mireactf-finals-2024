@@ -15,7 +15,7 @@ class ACMS(object):
 
     def connect(self) -> bool:
         try:
-            self.r = remote(self.host, PORT, timeout=5)
+            self.r = remote(self.host, PORT, timeout=7)
             self.r.timeout = 0.5
         except:
             return False
