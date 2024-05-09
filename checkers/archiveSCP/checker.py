@@ -14,7 +14,7 @@ import access_api
 
 class Checker(BaseChecker):
     vulns: int = 1
-    timeout: int = 15
+    timeout: int = 20
     uses_attack_data: bool = True
 
     req_ua_agents = ['python-requests/2.{}.0'.format(x) for x in range(15, 28)]
