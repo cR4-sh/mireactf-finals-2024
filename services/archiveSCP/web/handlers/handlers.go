@@ -167,7 +167,7 @@ func PostCreateSCP(c *gin.Context) {
 	}
 
 	if err == nil {
-		ImageFilePath := filepath.Join("./secret-data/images", image.Filename) // ImageFilePath := filepath.Join("./secret-data/images", filepath.Base(image.Filename))
+		ImageFilePath := filepath.Join("./secret-data/images", image.Filename)
 		file, err := os.Create(ImageFilePath)
 		if err != nil {
 			c.String(500, "Ошибка при создании файла для изображения")
@@ -188,7 +188,7 @@ func PostCreateSCP(c *gin.Context) {
 		image_name = image.Filename
 	}
 
-	txtFilePath := filepath.Join("./secret-data/description", name) // txtFilePath := filepath.Join("./secret-data/description", filepath.Base(name))
+	txtFilePath := filepath.Join("./secret-data/description", name)
 	txtFile, err := os.OpenFile(txtFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		c.String(500, "Ошибка при открытии файла")

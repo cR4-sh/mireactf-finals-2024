@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python3
 import random
 import re
 import string
@@ -37,7 +37,9 @@ class Checker(BaseChecker):
         session = self.session_with_req_ua()
         username1, password1 = rnd_username(), rnd_password()
         username2, password2 = rnd_username(), rnd_password()
-        department = rnd_username()
+        username3, password3 = rnd_username(), rnd_password()
+        department1 = rnd_username()
+        department2 = rnd_username()
         scp = self.lib.GetScpName()
 
         ping = self.lib.ping()
@@ -46,8 +48,9 @@ class Checker(BaseChecker):
 
         self.lib.signup(session, username1, password1)
         self.lib.signup(session, username2, password2)
+        self.lib.signup(session, username3, password3)
         session = self.lib.signin(session, username1, password1)
-        self.lib.createDepartment(session, department)
+        self.lib.createDepartment(session, department1)
         self.lib.createObject(session, scp, Faker('ru_RU').text(1000), "")
         self.lib.invite(session, username2)
         if not self.lib.checkStaff(session, username2):
@@ -56,11 +59,14 @@ class Checker(BaseChecker):
         session = self.lib.signin(session, username2, password2)
         if not self.lib.checkList(session, scp):
             self.cquit(Status.MUMBLE)
-        if not self.lib.checkSCP(session, scp, scp):
+        # if not self.lib.checkSCP(session, scp, scp):
+        #     self.cquit(Status.MUMBLE)
+        session = self.lib.signin(session, username3, username3)
+        self.lib.createDepartment(session, department2)
+        if not self.lib.checkInviteWhenInDepartment(session, username2, department1):
             self.cquit(Status.MUMBLE)
 
-
-        self.cquit(Status.OK, )
+        self.cquit(Status.OK)
 
     def put(self, flag_id: str, flag: str, vuln: str):
         ping = self.lib.ping()

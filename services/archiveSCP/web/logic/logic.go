@@ -11,16 +11,26 @@ import (
 	"web/database"
 	"web/models"
 
+	"crypto/rand"
 	"fmt"
-	"os"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
-func GetSecret() string {
-	return os.Getenv("secret")
+func GenerateRandomKey() string {
+	buffer := make([]byte, 32)
+
+	if _, err := rand.Read(buffer); err != nil {
+		return ""
+	}
+
+	key := hex.EncodeToString(buffer)
+
+	return key
 }
+
+var secretDep string = GenerateRandomKey()
 
 func AuthRequired(c *gin.Context) {
 	session := sessions.Default(c)
@@ -97,7 +107,7 @@ func GetAndVerificate(c string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("ошибка декодирования urlencode")
 	}
-	hash.Write([]byte(GetSecret() + urldecode))
+	hash.Write([]byte(secretDep + urldecode))
 	md5Str := hex.EncodeToString(hash.Sum(nil))
 	if md5Str != sig {
 		return "", fmt.Errorf("неверная сигнатура")
@@ -116,7 +126,7 @@ func GetAndVerificate(c string) (string, error) {
 func GetDepartmentCookie(department string) string {
 	hash := md5.New()
 	payload := "department=" + department
-	hash.Write([]byte(GetSecret() + payload))
+	hash.Write([]byte(secretDep + payload))
 	sig := hex.EncodeToString(hash.Sum(nil))
 	return sig + "." + base64.StdEncoding.EncodeToString([]byte(payload))
 }
