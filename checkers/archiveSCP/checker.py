@@ -3,8 +3,8 @@ import random
 import re
 import string
 import sys
+import json
 
-import requests
 from faker import Faker
 from checklib import *
 from checklib import status
@@ -44,7 +44,7 @@ class Checker(BaseChecker):
 
         ping = self.lib.ping()
         if not ping:
-            self.cquit(Status.DOWN)
+            self.cquit(Status.DOWN, "Failed to Connect")
 
         self.lib.signup(session, username1, password1)
         self.lib.signup(session, username2, password2)
@@ -53,25 +53,29 @@ class Checker(BaseChecker):
         self.lib.createDepartment(session, department1)
         self.lib.createObject(session, scp, Faker('ru_RU').text(1000), "")
         self.lib.invite(session, username2)
-        if not self.lib.checkStaff(session, username2):
-            self.cquit(Status.MUMBLE)
+        # if not self.lib.checkStaff(session, username2):
+        #     self.cquit(Status.MUMBLE)
+        self.assert_eq(self.lib.checkStaff(session, username2), 1, "Failed to check Staff")
        
         session = self.lib.signin(session, username2, password2)
-        if not self.lib.checkList(session, scp):
-            self.cquit(Status.MUMBLE)
+        # if not self.lib.checkList(session, scp):
+        #     self.cquit(Status.MUMBLE)
+        self.assert_eq(self.lib.checkList(session, scp), 1, "Failed to check SCP list")
         # if not self.lib.checkSCP(session, scp, scp):
         #     self.cquit(Status.MUMBLE)
-        session = self.lib.signin(session, username3, username3)
+        session = self.lib.signin(session, username3, password3)
         self.lib.createDepartment(session, department2)
-        if not self.lib.checkInviteWhenInDepartment(session, username2, department1):
-            self.cquit(Status.MUMBLE)
+        # if not self.lib.checkInviteWhenInDepartment(session, username2, department1):
+        #     self.cquit(Status.MUMBLE)
+
+        self.assert_eq(self.lib.checkInviteWhenInDepartment(session, username2, department1), 1, "Failed To Invite user from another Department")
 
         self.cquit(Status.OK)
 
     def put(self, flag_id: str, flag: str, vuln: str):
         ping = self.lib.ping()
         if not ping:
-            self.cquit(Status.DOWN)
+            self.cquit(Status.DOWN, "Failed to Connect")
         sess = self.session_with_req_ua()
         u1 = rnd_username()
         p1 = rnd_password()
@@ -87,21 +91,21 @@ class Checker(BaseChecker):
         name_scp = self.lib.createObject(sess, self.lib.GetScpName(), Faker('ru_RU').text(1000), flag)
         self.lib.invite(session, u2)
         if name_scp:
-            self.cquit(Status.OK, '{"username": "' + u1 + '","department":"' + department + '"}', f"{u2}:{p2}:{name_scp}")
+            self.cquit(Status.OK, json.dumps({"username": u1}), f"{u2}:{p2}:{name_scp}")
 
-        self.cquit(Status.MUMBLE)
+        self.cquit(Status.MUMBLE, "Failed to put SCP")
 
     def get(self, flag_id: str, flag: str, vuln: str):
         ping = self.lib.ping()
         if not ping:
-            self.cquit(Status.DOWN)
+            self.cquit(Status.DOWN, "Failed to Connect")
         u, p, name_scp = flag_id.split(':')
         sess = self.session_with_req_ua()
         sess = self.lib.signin(sess, u, p, status=Status.CORRUPT)
 
         check = self.lib.checkSCP(sess, name_scp, flag)
         if not check:
-            self.cquit(Status.CORRUPT)
+            self.cquit(Status.CORRUPT, "Failed to retrive Flag")
 
         self.cquit(Status.OK)
 
