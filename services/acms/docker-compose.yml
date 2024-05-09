@@ -1,12 +1,11 @@
-version: '3.3'
-
+version: "3.3"
 services:
   app:
     build: .
     depends_on:
       - db
     ports:
-      - 1079:1079
+      - 10079:10079
   db:
     restart: always
     image: postgres:13.3

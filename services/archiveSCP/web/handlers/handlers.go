@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/base64"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -18,11 +17,7 @@ import (
 )
 
 func validate(c *gin.Context, department string) bool {
-	cookies := c.Request.Cookies()
 
-	for _, cookie := range cookies {
-		fmt.Println("Cookie:", cookie.Name, "=", cookie.Value)
-	}
 	cookie, err := c.Cookie("department")
 	if err != nil {
 		if err == http.ErrNoCookie {
@@ -131,7 +126,6 @@ func GetObject(c *gin.Context) {
 		c.String(http.StatusInternalServerError, "Error reading descrptoin")
 		return
 	}
-	log.Print(string(description))
 	encodedImage := base64.StdEncoding.EncodeToString(imageData)
 	c.HTML(200, "object.html", gin.H{"name": object.Name, "imagedata": encodedImage, "description": strings.Split(string(description), "\n"), "user": user})
 }
@@ -167,7 +161,7 @@ func PostCreateSCP(c *gin.Context) {
 	}
 
 	if err == nil {
-		ImageFilePath := filepath.Join("./secret-data/images", image.Filename) // ImageFilePath := filepath.Join("./secret-data/images", filepath.Base(image.Filename))
+		ImageFilePath := filepath.Join("./secret-data/images", image.Filename)
 		file, err := os.Create(ImageFilePath)
 		if err != nil {
 			c.String(500, "Ошибка при создании файла для изображения")
@@ -188,7 +182,7 @@ func PostCreateSCP(c *gin.Context) {
 		image_name = image.Filename
 	}
 
-	txtFilePath := filepath.Join("./secret-data/description", name) // txtFilePath := filepath.Join("./secret-data/description", filepath.Base(name))
+	txtFilePath := filepath.Join("./secret-data/description", name)
 	txtFile, err := os.OpenFile(txtFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		c.String(500, "Ошибка при открытии файла")

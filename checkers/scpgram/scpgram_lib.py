@@ -26,13 +26,13 @@ class TestLib:
         except Exception as e:
             return 0
 
-    def signup(self, session: requests.Session, username: str, password: str):
+    def signup(self, session: requests.Session, username: str, password: str, status: checklib.Status = checklib.Status.MUMBLE):
         resp = session.post(f'{self.api_url}/login', data={
             'username': username,
             'password': password,
             'action': 'signup'
         ,}, timeout=15)
-        self.c.assert_eq(resp.status_code, 200, 'Failed to signup')
+        self.c.assert_eq(resp.status_code, 200, 'Failed to signup',  status=status)
         resp_data = self.c.get_text(resp, 'Failed to signup: invalid data')
         return resp_data
 

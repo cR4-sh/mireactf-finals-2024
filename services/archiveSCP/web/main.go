@@ -11,7 +11,8 @@ import (
 )
 
 func main() {
-	store := cookie.NewStore([]byte("secret"))
+	secret := logic.GenerateRandomKey()
+	store := cookie.NewStore([]byte(secret))
 	database.InitDataBase()
 	router := gin.Default()
 	router.Use(sessions.Sessions("mysession", store))
