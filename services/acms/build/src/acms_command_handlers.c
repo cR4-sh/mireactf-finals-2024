@@ -752,7 +752,7 @@ void delete_log(acms_logger* logger, PGconn* conn, char** user_uuid)
 
     if (result)
     {
-        snprintf(log, ACMS_LOG_SIZE, "Can't delete log with index: %llu!", ind++);
+        snprintf(log, ACMS_LOG_SIZE, "Can't delete log with index: %lu!", ind++);
         acms_set_status_message(logger, log);
         return;
     }

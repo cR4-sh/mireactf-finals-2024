@@ -5,7 +5,7 @@ services:
     depends_on:
       - db
     ports:
-      - 1079:1079
+      - 10079:10079
   db:
     restart: always
     image: postgres:13.3
