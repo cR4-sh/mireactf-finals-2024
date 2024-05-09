@@ -8,4 +8,4 @@ RUN apt update && apt install socat postgresql-client libpq-dev -yyy && \
     chmod 555 acms
 
 USER user
-CMD ["socat", "tcp-l:1079,reuseaddr,fork", "EXEC:'/opt/app/acms',pty,echo=0,raw"]
+CMD ["socat", "tcp-l:10079,reuseaddr,fork", "EXEC:'/opt/app/acms',pty,echo=0,raw"]
