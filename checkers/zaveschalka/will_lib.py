@@ -3,7 +3,7 @@ from checklib import BaseChecker, Status
 import requests
 
 PORT = 1782
-TIMEOUT = 15
+TIMEOUT = 5
 
 class WillLib:
     @property
