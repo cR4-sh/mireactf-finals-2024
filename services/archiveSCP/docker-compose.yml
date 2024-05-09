@@ -4,9 +4,15 @@ services:
     mongo:
         image: mongo
         container_name: mongodb
+        healthcheck:
+            test: ["CMD", "mongosh", "--norc", "--quiet", "--host=localhost:27017", "--eval", "'db.getMongo()'"]
+            interval: 5s
+            timeout: 5s
+            retries: 3
     web:
         depends_on:
-            - mongo
+            mongo:
+                condition: service_healthy
         build: ./web/
         ports:
         - "2324:8000"

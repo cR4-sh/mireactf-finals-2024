@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"web/database"
 	"web/handlers"
 	"web/logic"
@@ -13,7 +12,6 @@ import (
 
 func main() {
 	secret := logic.GenerateRandomKey()
-	fmt.Print(secret)
 	store := cookie.NewStore([]byte(secret))
 	database.InitDataBase()
 	router := gin.Default()

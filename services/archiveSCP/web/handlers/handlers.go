@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/base64"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -18,11 +17,7 @@ import (
 )
 
 func validate(c *gin.Context, department string) bool {
-	cookies := c.Request.Cookies()
 
-	for _, cookie := range cookies {
-		fmt.Println("Cookie:", cookie.Name, "=", cookie.Value)
-	}
 	cookie, err := c.Cookie("department")
 	if err != nil {
 		if err == http.ErrNoCookie {
@@ -131,7 +126,6 @@ func GetObject(c *gin.Context) {
 		c.String(http.StatusInternalServerError, "Error reading descrptoin")
 		return
 	}
-	log.Print(string(description))
 	encodedImage := base64.StdEncoding.EncodeToString(imageData)
 	c.HTML(200, "object.html", gin.H{"name": object.Name, "imagedata": encodedImage, "description": strings.Split(string(description), "\n"), "user": user})
 }
