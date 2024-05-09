@@ -3,6 +3,7 @@ from checklib import BaseChecker, Status
 import requests
 
 PORT = 1782
+TIMEOUT = 15
 
 class WillLib:
     @property
@@ -26,13 +27,13 @@ class WillLib:
 
     def register(self, session: requests.Session, username: str, password: str, email: str, phone: str):
         try:
-            resp = session.post(f'{self.api_url}/register.php', data={
+            resp = session.post(f'{self.api_url}/register.php', timeout=TIMEOUT, data={
                 'login': username,
                 'password': password,
                 'phone': phone,
                 'email': email 
             })
-        except requests.exceptions.ConnectionError:
+        except:
             self.c.cquit(Status.DOWN)
         self.c.assert_in('profile.php', resp.url, f'Failed to register')
         self.c.assert_eq(200, resp.status_code, 'Failed to register')
@@ -41,11 +42,11 @@ class WillLib:
 
     def login(self, session: requests.Session, username: str, password: str, email: str = "", phone: str = ""):
         try:
-            resp = session.post(f'{self.api_url}/login.php', data={
+            resp = session.post(f'{self.api_url}/login.php', timeout=TIMEOUT, data={
                 'login': username,
                 'password': password
             })
-        except requests.exceptions.ConnectionError:
+        except:
             self.c.cquit(Status.DOWN)
         self.c.assert_in('profile.php', resp.url, f'Failed to login')
         self.c.assert_eq(200, resp.status_code, 'Failed to login')
@@ -53,12 +54,12 @@ class WillLib:
     
     def create_will(self, session: requests.Session, title: str, will: str, username_to_share: str):
         try:
-            resp = session.post(f'{self.api_url}/create_will.php', data={
+            resp = session.post(f'{self.api_url}/create_will.php', timeout=TIMEOUT, data={
                 'title': title,
                 'will': will,
                 'username0': username_to_share
             })
-        except requests.exceptions.ConnectionError:
+        except:
             self.c.cquit(Status.DOWN)
         self.c.assert_in('will.php?id=', resp.url, 'Failed to create will')
         self.c.assert_eq(200, resp.status_code, 'Failed to create will')
@@ -66,8 +67,8 @@ class WillLib:
     
     def check_will(self, session: requests.Session, will_id: str, flag: str, is_shared: bool = False):
         try:
-            resp = session.get(f'{self.api_url}/will.php?id={will_id}')
-        except requests.exceptions.ConnectionError:
+            resp = session.get(f'{self.api_url}/will.php?id={will_id}', timeout=TIMEOUT)
+        except:
             self.c.cquit(Status.DOWN)
         
         self.c.assert_in(flag, resp.text, f"Failed to get {'shared ' if is_shared else ''}will", Status.CORRUPT)
