@@ -53,7 +53,7 @@ class AccessApi:
             'username': username,
             'password': password,
         }, timeout=TIMEOUT)
-        self.c.assert_nin("Неправильное имя пользователя или пароль", resp.text, "Failed to login")
+        self.c.assert_nin("Неправильное имя пользователя или пароль", resp.text, "Failed to login", status=status)
         return session
     
     def checkSCP(self, session: requests.Session, name: str, flag: str):
