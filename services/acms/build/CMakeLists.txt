@@ -11,4 +11,4 @@ add_executable(acms "src/main.c" "src/acms_message.c" "src/acms_command_handlers
 target_link_libraries(acms PUBLIC pqlib)
 target_include_directories(acms PUBLIC "/usr/include/postgresql")
 target_include_directories(acms PUBLIC "headers")
-target_compile_options(acms PUBLIC "-g")
+# target_compile_options(acms PUBLIC "-g")

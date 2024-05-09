@@ -15,15 +15,21 @@ class ACMS(object):
 
     def connect(self) -> bool:
         try:
-            self.r = remote(self.host, PORT, timeout=5)
+            self.r = remote(self.host, PORT, timeout=7)
             self.r.timeout = 0.5
-
         except:
             return False
 
         self.r.rl = self.r.recvline
         self.r.ru = self.r.recvuntil
         self.r.sl = self.r.sendline
+
+        try:
+            if not self.r.ru(b'\n[>]'): raise
+            self.r.sl(b'0')
+        except:
+            return False
+
 
         return True
 
