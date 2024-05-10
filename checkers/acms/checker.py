@@ -88,26 +88,26 @@ class Checker(BaseChecker):
         head_un, head_p, plebeian_un, plebeian_p, plebeian_a, device = flag_id.split(':')
 
         self.assert_eq(self.acms.connect(), True, 'Failed to connect', Status.DOWN)
-        self.assert_eq(self.acms.login(head_un, head_p), True, 'Failed to login')
+        self.assert_eq(self.acms.login(head_un, head_p), True, 'Failed to login', Status.CORRUPT)
 
         members, devices = self.acms.show_group()
         if not members or not devices:
-            self.cquit(Status.MUMBLE)
+            self.cquit(Status.CORRUPT, 'Corrupted group')
 
-        self.assert_eq(devices[0], [device, 'Access controller', '5'], 'Mumbled devices')
+        self.assert_eq(devices[0], [device, 'Access controller', '5'], 'Corrupted devices', Status.CORRUPT)
         self.assert_eq(self.acms.get_device(devices[0][0]), flag, 'Failed to retrive flag', Status.CORRUPT)
-        self.assert_neq(self.acms.get_device(random.choice(devices[1:])[0]), '', 'Mumbled devices')
+        self.assert_neq(self.acms.get_device(random.choice(devices[1:])[0]), '', 'Corrupted devices', Status.CORRUPT)
         self.assert_eq(self.acms.logout(), True, 'Mubled logout')
 
         if plebeian_un:
-            self.assert_eq(self.acms.login(plebeian_un, plebeian_p), True, 'Failed to login')
-            self.assert_neq(self.acms.get_profile(), '', 'Mubled profile')
-            self.assert_eq(self.acms.get_device(devices[0][0]), '', 'Mubled devices')
+            self.assert_eq(self.acms.login(plebeian_un, plebeian_p), True, 'Failed to login', Status.CORRUPT)
+            self.assert_neq(self.acms.get_profile(), '', 'Corrupted profile', Status.CORRUPT)
+            self.assert_eq(self.acms.get_device(devices[0][0]), '', 'Corrupted devices', Status.CORRUPT)
 
             devices = list(filter(lambda d: int(d[2]) <= int(plebeian_a), devices))
 
             if devices:
-                self.assert_neq(self.acms.get_device(random.choice(devices)[0]), '', 'Mubled devices')
+                self.assert_neq(self.acms.get_device(random.choice(devices)[0]), '', 'Corrupted devices', Status.CORRUPT)
 
         self.cquit(Status.OK)
         

@@ -82,14 +82,14 @@ class Checker(BaseChecker):
         
         # Логинимся за первого пользователя
         session1 = self._session_with_req_ua()
-        self.lib.login(session1, username1, password1, Status.CORRUPT)
+        self.lib.login(session1, username1, password1)
 
         # Проверяем доступ к флагу
         self.lib.check_will(session1, will_id, flag)
         
         # Логинимся за второго пользователя
         session2 = self._session_with_req_ua()
-        self.lib.login(session2, username2, password2, Status.CORRUPT)
+        self.lib.login(session2, username2, password2)
 
         # Проверяем доступ к флагу от пользователя, которому шарили записку
         self.lib.check_will(session2, will_id, flag, True)
