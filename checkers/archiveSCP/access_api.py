@@ -37,7 +37,6 @@ class AccessApi:
             return 1
         except Exception as e:
             return 0
-
     def signup(self, session: requests.Session, username: str, password: str):
         resp = session.post(f'{self.api_url}/register', data={
             'username': username,
