@@ -75,7 +75,7 @@ if (count($_POST) > 4) {
 
 ### Bug №2
 
-The second bug was an apache missconfiguration. It allowed us to read all the files in the directory `/var/www/mireactf'. The problem was the lack of a rewrite rule on the blacklist for everything that is not included in the whitelist. This way we could read all the files, not just the ones listed by extensions. Let's split through reading the files of wills with serialized objects.
+The second bug was an apache missconfiguration. It allowed us to read all the files in the directory `/var/www/mireactf`. The problem was the lack of a rewrite rule on the blacklist for everything that is not included in the whitelist. This way we could read all the files, not just the ones listed by extensions. Let's split through reading the files of wills with serialized objects.
 
 Vulnerable config:
 
