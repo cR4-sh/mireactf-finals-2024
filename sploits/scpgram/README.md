@@ -1,4 +1,4 @@
-# Writeup for zaveschalka
+# Writeup for scpgram
 
 ![service](img/service.png)
 
