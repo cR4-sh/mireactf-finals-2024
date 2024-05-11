@@ -1,4 +1,4 @@
-# Writeup for zaveschalka
+# Writeup for archiveSCP
 
 ![service](img/archiveSCP.png)
 
