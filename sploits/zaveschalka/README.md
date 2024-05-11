@@ -10,7 +10,7 @@ This php application was a wills service for Class D employees. When creating a 
 
 ### Bug №1
 
-During registration, the user object was created based on the entire `$_POST` map, but before that, only the intended parameters for registration (login, password, email, phone) are validated:
+During registration, the user object was created based on the entire `$_POST` map, but before that, only the intended parameters for registration (login, password, email, phone) were validated:
 
 ``` php
 // register.php
@@ -52,12 +52,12 @@ if (isset($user->wills) && in_array($_GET['id'], $user->wills)) {
 }
 ```
 
-Putting these two facts together, we can understand that, thanks to the curve of the registration function, we can create a user by adding an array of wills as his attribute, in the cells of which the IDs from the attack data will be indicated:
+Putting these two facts together, we can understand that, thanks to the special feature of the registration function, we could create a user by adding an array of wills as his attribute, in the cells of which the IDs from the attack data will be indicated:
 
 It will look something like this:
 
 ``` php
-// We send the post parameter to the /register.php handler and we specify something like as the date:
+// We send the post parameter to the /register.php handler and we specify something like this:
 login=FrakenboK&password=iloveRobertSama&email=noLifeOnlyPWN@crash.mirea&phone=1337&wills[0]=<will_id>&wills[1]=<will_id>&...
 // And so on
 ```
@@ -75,7 +75,7 @@ if (count($_POST) > 4) {
 
 ### Bug №2
 
-The second bug was an apache missconfiguration. It allowed us to read all the files in the directory `/var/www/mireactf`. The problem was the lack of a rewrite rule on the blacklist for everything that is not included in the whitelist. This way we could read all the files, not just the ones listed by extensions. Let's split through reading the files of wills with serialized objects.
+The second bug was an apache missconfiguration. It allowed us to read all the files in the directory `/var/www/mireactf`. The problem was the lack of a rewrite rule on the blacklist for everything that is not included in the whitelist. This way we could read all the files, not just the ones listed by extensions. We could exploit the vulnerability by reading the files of wills with serialized objects.
 
 Vulnerable config:
 
