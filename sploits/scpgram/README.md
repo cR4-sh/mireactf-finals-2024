@@ -25,7 +25,7 @@ Vulnerable version library markdown parser `markdown2`. In [snyk](https://securi
 
 Fix option:
 
-update verion markdown2
+update version markdown2
 
 [Exploit](./dos.py)
 
