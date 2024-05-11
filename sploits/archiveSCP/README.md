@@ -39,6 +39,12 @@ if guest.Department != "" {
 
 Так же с помощью этой баги можно было досить чужие сервисы, просто дописывая нагрузку в файл шаблона, которую не мог съесть golang по типу "{{".
 
+Одна из возможнность фикса, отрубить path traversal при создании файла объекта:
+
+```go
+txtFilePath := filepath.Join("./secret-data/description", filepath.Base(name))
+```
+
 [Сплойт](./sploitSSTI.py)
 
 ### Bug №2
