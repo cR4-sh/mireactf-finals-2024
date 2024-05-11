@@ -10,7 +10,7 @@ It's basic python flask app with chats on socketio. Were modest features besides
 
 ### Bug №1
 
-Brocken access control inside socket routes. We can processing `get_messages` for every chat. 
+Brocken access control inside socket routes. We can perform `get_messages` for every chat. 
 
 [Exploit](./logic_flaw.py)
 
