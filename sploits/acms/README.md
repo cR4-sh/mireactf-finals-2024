@@ -57,3 +57,5 @@ I'm too lazy to elaborate, I hope the point is clear.
 Exploitation of use-after-free looks something like this:
 
 ![service](img/uaf.gif)
+
+Bug can be “fixed” with extending malloc size. So you can't get a uuid freed chunk. 
