@@ -4,6 +4,9 @@
 
 Репозиторий с чекерами, сервисами и сплойтами.
 
+Спонсоры: BI.ZONE, Angara Security, Kaspersky, Yandex
+
+Link [ctftime](https://ctftime.org/event/2368)
 ## Results
 
 ![Top](scoreboard/top.png)
